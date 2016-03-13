@@ -19,18 +19,27 @@ import os
 
  # show an "Open" dialog box and return the path to the selected file
 
-class HelloApp(App):
-	def start( self ):
-		if self.ct:
-			raise 'cannot run another copy of vplayer'
-		self.exitFlag= 0
-		self.ct= thread.start_new_thread( self.readerLoop, () )
+class VideoPlayerApp(App):
+
 	def build(self):
+		
 		Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
-		filename = askopenfilename()
+		filename = askopenfilename(filetypes=[('All Types',('.webm','.drc','.gif', '.wmv',
+		'.mov','.qt','.gifv','.rm','.rmvb',
+		'.asf','.mp4','.mpg','.mp2',
+		'.mpeg','.mpe','.mpv','.m2v','.m4v',
+		'.svi','.3gp','.mxf','.3g2','.nsv','.roq',
+		'.mkv','.vob','.ogv','.flv')),('WebM', '.webm'),('Dirac','.drc'),('GIF','.gif'),
+		('Windows Media Video','.wmv'),('Quick time file Format','.mov'),
+		('Quick Time FileFormat','.qt'),('Video Alternatives to GIF','.gifv'),
+		('Raw Video Format','.yuv'),('RealMedia','.rm'),('RealMedia Variable Bytes','.rmvb'),('AdvancedSystems Formats','.asf'),('MPEG-4','.mp4'),('MPEG-4 Part 14','.mp4'),
+		('MPEG-1','.mpg'),('MPEG-2','.mp2'),('MPEG','.mpeg'),('MPE','.mpe'),('MPV','.mpv'),	('MPEG-2 Video','.m2v'),('M4V','.m4v'),('SVI','.svi'),('3GPP','.3gp'),
+		('MaterialExchange Format','.mxf'),('3GPP2','.3g2'),('Nullsoft Streaming Video','.nsv'),('ROQ','.roq'),	('Matroska','.mkv'),('Vob','.vob'),('Ogg','.ogv'), ('Flash Videos', '.flv')])
+		#root = Tkinter.Tk()
+		#fileName = tkFileDialog.asksaveasfilename(parent=root,filetypes=myFormats ,title="Save the image as...")
 		player=VideoPlayer(source=filename,state="play",options={'eos':'loop'})
 		return player
 		
 if __name__ == '__main__':
 #	Editor().run()
-	HelloApp().run()
+	VideoPlayerApp().run()
